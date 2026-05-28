@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fees Installment & Receipt Tracker - Admin Portal</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="app-sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-icon">
+          <!-- Receipt Icon SVG -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">
+            <line x1="12" y1="1" x2="12" y2="23"></line>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+        </div>
+        <div class="brand-name" id="sidebar-brand-container">
+          LITTLE ANCHORS
+          <span id="sidebar-brand-tagline">Preschool & Daycare</span>
+        </div>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li class="menu-item active" data-target="view-dashboard">
+          <button type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="9"></rect>
+              <rect x="14" y="3" width="7" height="5"></rect>
+              <rect x="14" y="12" width="7" height="9"></rect>
+              <rect x="3" y="16" width="7" height="5"></rect>
+            </svg>
+            Dashboard
+          </button>
+        </li>
+        <li class="menu-item" data-target="view-students">
+          <button type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+            Student Registry
+          </button>
+        </li>
+        <li class="menu-item" data-target="view-reminders">
+          <button type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            Follow-Up Centre
+          </button>
+        </li>
+        <li class="menu-item" data-target="view-settings">
+          <button type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+            Admin Settings
+          </button>
+        </li>
+      </ul>
+
+      <div class="sidebar-footer">
+        <div class="user-avatar">AD</div>
+        <div class="user-info">
+          <div class="user-name">Admin Director</div>
+          <div class="user-role">Primary Manager</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main App Frame -->
+    <main class="app-viewport">
+      <!-- Top Header Actions -->
+      <header class="app-header">
+        <div class="header-search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="18" height="18">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="global-search" placeholder="Quick search student or parent..." />
+        </div>
+        <div class="header-actions">
+          <button class="btn btn-primary" id="btn-add-student-modal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            Add Student
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Display Layout -->
+      <div class="main-content">
+
+        <!-- ================= VIEW 1: DASHBOARD ================= -->
+        <section id="view-dashboard" class="view-section active">
+          <!-- Metrics Widgets -->
+          <div class="metrics-grid">
+            <div class="metric-card primary">
+              <div class="metric-header">
+                <span>TOTAL FEES EXPECTED</span>
+                <div class="metric-icon-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                </div>
+              </div>
+              <div class="metric-value" id="stat-total-fees">₹0</div>
+              <div class="metric-trend"><span class="trend-up">100% expected</span> active schedules</div>
+            </div>
+
+            <div class="metric-card success">
+              <div class="metric-header">
+                <span>TOTAL COLLECTED</span>
+                <div class="metric-icon-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                </div>
+              </div>
+              <div class="metric-value" id="stat-collected">₹0</div>
+              <div class="metric-trend" id="stat-collection-rate"><span class="trend-up">0% rate</span> of collection</div>
+            </div>
+
+            <div class="metric-card warning">
+              <div class="metric-header">
+                <span>PENDING BALANCE</span>
+                <div class="metric-icon-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                </div>
+              </div>
+              <div class="metric-value" id="stat-pending">₹0</div>
+              <div class="metric-trend" id="stat-pending-percentage"><span class="trend-down">0% remaining</span> outstanding</div>
+            </div>
+
+            <div class="metric-card danger">
+              <div class="metric-header">
+                <span>OVERDUE AMOUNT</span>
+                <div class="metric-icon-box">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                </div>
+              </div>
+              <div class="metric-value" id="stat-overdue">₹0</div>
+              <div class="metric-trend" id="stat-overdue-count"><span class="trend-down">0 installments</span> past due</div>
+            </div>
+          </div>
+
+          <!-- Charts and Notifications Panel -->
+          <div class="dashboard-grid">
+            <!-- Left Graph: Collection & Split Overview -->
+            <div class="dashboard-card">
+              <div class="card-title">
+                Fee Collection Analytics
+                <div style="font-size: 0.8rem; font-weight: normal; color: var(--text-muted);">Real-time proportions</div>
+              </div>
+              <div class="chart-container">
+                <!-- Inline SVG Pie/Donut Chart for Fee Distribution -->
+                <svg viewBox="0 0 100 100" class="chart-svg" id="donut-chart-svg">
+                  <!-- Generated Dynamically via JS -->
+                </svg>
+              </div>
+              <div class="chart-legend" id="donut-chart-legend">
+                <!-- Legend items generated dynamically via JS -->
+              </div>
+            </div>
+
+            <!-- Right Column: Urgent Payment Follow-ups -->
+            <div class="dashboard-card" style="display: flex; flex-direction: column;">
+              <div class="card-title" style="margin-bottom: 16px;">
+                Urgent Follow-Ups Needed
+                <span class="badge badge-overdue" id="urgent-followups-badge">0</span>
+              </div>
+              <div class="alerts-list" id="dashboard-alerts-list" style="flex: 1; overflow-y: auto; max-height: 280px;">
+                <!-- Alerts list items generated dynamically via JS -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Graph 2: Bar Chart Monthly Collection Trend -->
+          <div class="dashboard-card">
+            <div class="card-title">Monthly Collection Trend</div>
+            <div class="chart-container" style="min-height: 260px;">
+              <svg viewBox="0 0 600 240" class="chart-svg" id="bar-chart-svg">
+                <!-- Bar Chart generated dynamically via JS -->
+              </svg>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ================= VIEW 2: STUDENT REGISTRY ================= -->
+        <section id="view-students" class="view-section">
+          <!-- Filters Toolbar -->
+          <div class="filter-bar">
+            <div class="filters-left">
+              <div class="search-input-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="registry-search" placeholder="Search by student/parent..." />
+              </div>
+
+              <select class="select-filter" id="filter-class">
+                <option value="all">All Classes</option>
+                <option value="Playgroup">Playgroup</option>
+                <option value="Nursery">Nursery</option>
+                <option value="LKG">LKG</option>
+                <option value="UKG">UKG</option>
+                <option value="Daycare Regular">Daycare Regular</option>
+              </select>
+
+              <select class="select-filter" id="filter-status">
+                <option value="all">All Payment Statuses</option>
+                <option value="paid">Fully Paid</option>
+                <option value="partial">Partially Paid</option>
+                <option value="pending">Pending</option>
+                <option value="overdue">Overdue</option>
+              </select>
+            </div>
+
+            <button class="btn btn-secondary" id="btn-export-csv">
+              <!-- Export Icon -->
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              Export CSV
+            </button>
+          </div>
+
+          <!-- Main Students Data Grid -->
+          <div class="table-wrapper">
+            <table class="app-table" id="students-table">
+              <thead>
+                <tr>
+                  <th>Student & Parent</th>
+                  <th>Class</th>
+                  <th>Total Fee</th>
+                  <th>Paid</th>
+                  <th>Pending</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="students-table-body">
+                <!-- Generated dynamically via JS -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+
+        <!-- ================= VIEW 3: FOLLOW-UP CENTRE ================= -->
+        <section id="view-reminders" class="view-section">
+          <div class="reminders-grid">
+            <!-- Left Side: Unpaid Students Selection Panel -->
+            <div class="dashboard-card" style="display: flex; flex-direction: column;">
+              <div class="card-title">Select Student for Follow-Up</div>
+              <div class="search-input-box" style="margin-bottom: 16px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="reminder-search" placeholder="Type name to filter..." />
+              </div>
+              <div id="reminder-students-list" style="flex: 1; overflow-y: auto; max-height: 480px; display: flex; flex-direction: column; gap: 8px;">
+                <!-- Generated dynamically via JS -->
+              </div>
+            </div>
+
+            <!-- Right Side: Message Templates and Previews -->
+            <div class="dashboard-card">
+              <div class="card-title">Follow-Up Message Workspace</div>
+              <div id="reminder-workspace-empty" class="empty-state" style="padding: 100px 0;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <h3>No Student Selected</h3>
+                <p>Select an unpaid student from the list to draft follow-up templates.</p>
+              </div>
+
+              <div id="reminder-workspace-content" style="display: none;">
+                <div class="form-group">
+                  <label class="form-label" for="reminder-template-select">Follow-Up Template</label>
+                  <select class="form-control" id="reminder-template-select">
+                    <option value="pre-due">Friendly Pre-Due Alert (due soon)</option>
+                    <option value="due-today">Immediate Notice (Due Today)</option>
+                    <option value="overdue-urgent">Urgent Payment Alert (Overdue)</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">Constructed Notification Preview</label>
+                  <div class="reminder-preview-box" id="reminder-message-preview">
+                    <!-- Preview updates dynamically -->
+                  </div>
+                </div>
+
+                <div class="reminder-channels">
+                  <button class="btn-channel btn-whatsapp" id="btn-share-whatsapp">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                    </svg>
+                    WhatsApp
+                  </button>
+                  <button class="btn-channel btn-email" id="btn-share-email">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                      <polyline points="22,6 12,13 2,6"></polyline>
+                    </svg>
+                    Email Direct
+                  </button>
+                  <button class="btn-channel btn-copy" id="btn-share-copy">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                    Copy Text
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= VIEW 4: ADMIN SETTINGS ================= -->
+        <section id="view-settings" class="view-section">
+          <div class="dashboard-card" style="max-width: 800px; margin: 0 auto;">
+            <div class="card-title">
+              Institution & Admin Configuration
+              <span style="font-size: 0.8rem; font-weight: normal; color: var(--text-muted);">Global adjustments</span>
+            </div>
+            
+            <form id="admin-settings-form">
+              <div class="form-grid">
+                <!-- Left Block: Branding -->
+                <div style="display:flex; flex-direction:column; gap:8px;">
+                  <h4 style="font-size:0.9rem; font-weight:700; margin-bottom:12px; color:var(--primary);">Brand Identity</h4>
+                  <div class="form-group">
+                    <label class="form-label" for="set-school-name">Institution Name</label>
+                    <input type="text" class="form-control" id="set-school-name" required value="LITTLE ANCHORS">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="set-school-tagline">Brand Tagline</label>
+                    <input type="text" class="form-control" id="set-school-tagline" required value="PRESCHOOL & DAYCARE">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="set-school-upi">UPI Payment ID (for Receipt stamps)</label>
+                    <input type="text" class="form-control" id="set-school-upi" required value="clearfee@upi">
+                  </div>
+                </div>
+
+                <!-- Right Block: Contacts & Billing Defaults -->
+                <div style="display:flex; flex-direction:column; gap:8px;">
+                  <h4 style="font-size:0.9rem; font-weight:700; margin-bottom:12px; color:var(--primary);">Billing Presets & Contacts</h4>
+                  <div class="form-group">
+                    <label class="form-label" for="set-school-phone">Office Phone Number</label>
+                    <input type="text" class="form-control" id="set-school-phone" required value="+91 98765 43210">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="set-school-email">Support Email Address</label>
+                    <input type="email" class="form-control" id="set-school-email" required value="office@littleanchors.edu">
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="set-default-fee">Default Course Fee (₹)</label>
+                    <input type="number" class="form-control" id="set-default-fee" required value="150000" min="0">
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-grid" style="border-top:1px solid var(--border-color); padding-top:20px; margin-top:10px;">
+                <div class="form-group">
+                  <label class="form-label" for="set-default-splits">Default Installments Count</label>
+                  <select class="form-control" id="set-default-splits">
+                    <option value="1">1 (Single Payment)</option>
+                    <option value="2">2 Split Payments</option>
+                    <option value="3" selected>3 Split Payments</option>
+                    <option value="4">4 Split Payments</option>
+                    <option value="5">5 Split Payments</option>
+                    <option value="6">6 Split Payments</option>
+                    <option value="8">8 Split Payments</option>
+                    <option value="10">10 Split Payments</option>
+                    <option value="12">12 Split Payments</option>
+                  </select>
+                </div>
+                <div class="form-group" style="display:flex; align-items:flex-end;">
+                  <button type="submit" class="btn btn-primary" style="width:100%; height:42px;">Save Global Admin Policies</button>
+                </div>
+              </div>
+            </form>
+          </div>
+
+          <!-- Dynamic Class Management Panel -->
+          <div class="dashboard-card" style="max-width: 800px; margin: 24px auto 0 auto;">
+            <div class="card-title">
+              Manage Active Course Classes
+              <span style="font-size: 0.8rem; font-weight: normal; color: var(--text-muted);">Dynamic class definitions</span>
+            </div>
+            
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+              <div>
+                <h4 style="font-size:0.85rem; font-weight:700; margin-bottom:12px; color:var(--text-muted); text-transform:uppercase;">Add Class</h4>
+                <div class="form-group" style="display:flex; gap:8px; margin-bottom:0;">
+                  <input type="text" class="form-control" id="new-class-input" placeholder="e.g. Nursery Lower">
+                  <button type="button" class="btn btn-primary" id="btn-add-class-trigger">Add Class</button>
+                </div>
+              </div>
+              <div>
+                <h4 style="font-size:0.85rem; font-weight:700; margin-bottom:12px; color:var(--text-muted); text-transform:uppercase;">Active Classes</h4>
+                <div id="settings-classes-list" style="display:flex; flex-direction:column; gap:6px; max-height:160px; overflow-y:auto; padding-right:6px;">
+                  <!-- Dynamic items populated via JS -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Danger Zone Database Action Panel -->
+          <div class="dashboard-card" style="max-width: 800px; margin: 24px auto 0 auto; border-color: var(--danger-border); background-color: var(--danger-light);">
+            <div class="card-title" style="color: var(--danger);">
+              ⚠️ System Danger Zone
+              <span style="font-size: 0.8rem; font-weight: normal; color: var(--text-muted);">Critical actions</span>
+            </div>
+            <p style="font-size:0.8rem; margin-bottom:16px; line-height:1.4; color:var(--text-muted);">
+              These administrative options are immediate and permanent. Use caution. Wiping payments preserves student structures but clears accounting collections.
+            </p>
+            <div style="display:flex; gap:16px; flex-wrap:wrap;">
+              <button type="button" class="btn btn-danger" id="btn-clear-all-payments-trigger">
+                Clear All Student Payments
+              </button>
+              <button type="button" class="btn btn-secondary" id="btn-reset-to-factory-trigger" style="color:var(--danger); border-color:var(--danger-border);">
+                Reset Whole System (Factory Defaults)
+              </button>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ================= OVERLAYS & MODALS ================= -->
+
+  <!-- Modal backdrop generic background -->
+  <div class="modal-backdrop" id="modal-backdrop-container">
+
+    <!-- MODAL 1: ADD / EDIT STUDENT -->
+    <div class="modal-content" id="modal-student-form" style="display: none;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="student-modal-title">Register New Student</h3>
+        <button class="btn-close" id="btn-close-student-modal">&times;</button>
+      </div>
+      <form id="student-entry-form">
+        <input type="hidden" id="student-edit-id" value="">
+        <div class="modal-body">
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="form-student-name">Student Full Name *</label>
+              <input type="text" class="form-control" id="form-student-name" required placeholder="e.g. Liam Johnson">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="form-class">Class/Grade *</label>
+              <select class="form-control" id="form-class" required>
+                <option value="Playgroup">Playgroup</option>
+                <option value="Nursery">Nursery</option>
+                <option value="LKG">LKG</option>
+                <option value="UKG">UKG</option>
+                <option value="Daycare Regular">Daycare Regular</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="form-parent-name">Parent / Guardian Name *</label>
+              <input type="text" class="form-control" id="form-parent-name" required placeholder="e.g. Robert Johnson">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="form-parent-phone">Contact Phone Number *</label>
+              <input type="tel" class="form-control" id="form-parent-phone" required placeholder="e.g. +1 555-0199">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="form-parent-email">Email Address *</label>
+              <input type="email" class="form-control" id="form-parent-email" required placeholder="e.g. robert@example.com">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="form-admission-date">Admission Date *</label>
+              <input type="date" class="form-control" id="form-admission-date" required>
+            </div>
+          </div>
+
+          <div class="fee-breakdown-box">
+            <h4 style="display:flex; justify-content:space-between; align-items:center;">
+              Billing & Installments Setup
+              <label style="font-size:0.75rem; font-weight:normal; display:flex; align-items:center; gap:6px; cursor:pointer;">
+                <input type="checkbox" id="form-toggle-advanced-breakdown"> Itemized details
+              </label>
+            </h4>
+
+            <!-- Core Direct Inputs: Total Fee and Total Installments -->
+            <div class="form-grid" id="core-billing-inputs" style="margin-bottom: 8px;">
+              <div class="form-group">
+                <label class="form-label" for="form-total-fee-direct">Total Course Fee (₹) *</label>
+                <input type="number" class="form-control" id="form-total-fee-direct" value="150000" min="1" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="form-installments-count-direct">Total Installments *</label>
+                <select class="form-control" id="form-installments-count-direct">
+                  <option value="1">1 (Single Upfront)</option>
+                  <option value="2">2 Installments</option>
+                  <option value="3" selected>3 Installments</option>
+                  <option value="4">4 Installments</option>
+                  <option value="5">5 Installments</option>
+                  <option value="6">6 Installments</option>
+                  <option value="8">8 Installments</option>
+                  <option value="10">10 Installments</option>
+                  <option value="12">12 Installments</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Optional Advanced Breakdown inputs (Hidden by default) -->
+            <div class="form-grid" id="advanced-breakdown-inputs" style="margin-bottom: 0; display:none;">
+              <div class="form-group">
+                <label class="form-label" for="form-admission-fee">Admission Fee (₹)</label>
+                <input type="number" class="form-control advanced-fee-input" id="form-admission-fee" value="30000" min="0">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="form-term-fee">Term Tuition Fee (₹)</label>
+                <input type="number" class="form-control advanced-fee-input" id="form-term-fee" value="80000" min="0">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="form-daycare-fee">Daycare Fee (₹)</label>
+                <input type="number" class="form-control advanced-fee-input" id="form-daycare-fee" value="40000" min="0">
+              </div>
+              <div class="form-group">
+                <label class="form-label" style="font-weight: 700; color: var(--primary);">Total Summed Fee</label>
+                <div style="font-size: 1.15rem; font-weight: 800; padding-top: 6px; color: var(--text-main);" id="form-total-calculated">₹1,50,000</div>
+              </div>
+            </div>
+
+            <!-- Dynamic Live Installments Scheduler Preview -->
+            <div id="modal-installments-preview-box" style="margin-top:12px; background:var(--border-light); padding:12px; border-radius:var(--radius-sm); border:1px solid var(--border-color);">
+              <h5 style="font-size:0.75rem; font-weight:700; margin-bottom:8px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">Scheduled Installment Plan Preview</h5>
+              <div id="modal-installments-preview-list" style="display:flex; flex-direction:column; gap:6px; max-height:120px; overflow-y:auto; font-size:0.75rem;">
+                <!-- Generated dynamically via JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btn-cancel-student-modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Student Structure</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- MODAL 2: LOG NEW PAYMENT -->
+    <div class="modal-content" id="modal-payment-form" style="display: none;">
+      <div class="modal-header">
+        <h3 class="modal-title">Log Installment Payment</h3>
+        <button class="btn-close" id="btn-close-payment-modal">&times;</button>
+      </div>
+      <form id="payment-entry-form">
+        <input type="hidden" id="payment-student-id" value="">
+        <input type="hidden" id="payment-installment-index" value="">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Student Name</label>
+            <input type="text" class="form-control" id="payment-display-student" readonly style="font-weight:600; opacity: 0.85;">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Installment Description</label>
+            <input type="text" class="form-control" id="payment-display-installment" readonly style="opacity: 0.85;">
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">Scheduled Amount</label>
+              <input type="text" class="form-control" id="payment-display-scheduled" readonly style="font-weight: 700;">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Amount Currently Due</label>
+              <input type="text" class="form-control" id="payment-display-due" readonly style="font-weight: 700; color: var(--danger);">
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="form-payment-amount">Payment Amount Received (₹) *</label>
+              <input type="number" class="form-control" id="form-payment-amount" required min="1" step="any">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="form-payment-date">Payment Date Received *</label>
+              <input type="date" class="form-control" id="form-payment-date" required>
+            </div>
+          </div>
+
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label" for="form-payment-method">Payment Mode *</label>
+              <select class="form-control" id="form-payment-method" required>
+                <option value="UPI / QR">UPI / QR Code</option>
+                <option value="Bank Transfer">Bank Wire Transfer</option>
+                <option value="Credit / Debit Card">Credit / Debit Card</option>
+                <option value="Cash">Cash Handover</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="form-payment-reference">Transaction Reference No. *</label>
+              <input type="text" class="form-control" id="form-payment-reference" required placeholder="e.g. TXN983274932, CHQ#232">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="form-payment-notes">Internal Remarks / Notes</label>
+            <textarea class="form-control" id="form-payment-notes" rows="2" placeholder="e.g. Parent requested receipt immediately"></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btn-cancel-payment-modal">Cancel</button>
+          <button type="submit" class="btn btn-success">Complete & Log Payment</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- MODAL 3: INVOICE / RECEIPT VIEWER -->
+    <div class="modal-content receipt-modal-content" id="modal-receipt-view" style="display: none;">
+      <div class="modal-header">
+        <h3 class="modal-title">Transaction Receipt</h3>
+        <button class="btn-close" id="btn-close-receipt-modal">&times;</button>
+      </div>
+      <div class="modal-body" style="padding: 16px;">
+        <div class="receipt-container" id="receipt-printable-area">
+          <div class="receipt-watermark">PAID</div>
+          
+          <div class="receipt-header-brand">
+            <div class="receipt-brand-logo">
+              <div class="logo-mark">₹</div>
+              <h3 id="receipt-brand-title">
+                LITTLE ANCHORS
+                <span>PRESCHOOL & DAYCARE</span>
+              </h3>
+            </div>
+            <div class="receipt-meta-right">
+              <h4>FEE RECEIPT</h4>
+              <p>Receipt No: <strong id="receipt-num">REC-2026-102</strong></p>
+              <p>Date: <span id="receipt-date">May 28, 2026</span></p>
+            </div>
+          </div>
+
+          <div class="receipt-details-grid">
+            <div class="receipt-bill-to">
+              <h5>BILL TO:</h5>
+              <p>Student: <strong id="receipt-student-name">Liam Johnson</strong></p>
+              <p>Class: <span id="receipt-student-class">LKG</span></p>
+              <p>Parent: <span id="receipt-parent-name">Robert Johnson</span></p>
+            </div>
+            <div class="receipt-summary-box">
+              <table>
+                <tr>
+                  <td>Total Scheduled:</td>
+                  <td style="text-align: right; font-weight: 600;" id="receipt-total-sch">₹1,50,000</td>
+                </tr>
+                <tr>
+                  <td>Total Paid to Date:</td>
+                  <td style="text-align: right; font-weight: 600; color: #0d9488;" id="receipt-total-coll">₹1,00,000</td>
+                </tr>
+                <tr>
+                  <td>Remaining Balance:</td>
+                  <td style="text-align: right; font-weight: 700; color: #e11d48;" id="receipt-total-bal">₹50,000</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <table class="receipt-table">
+            <thead>
+              <tr>
+                <th>Description</th>
+                <th style="text-align: right;">Paid Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <span id="receipt-item-desc" style="font-weight: 600;">1st Installment payment</span>
+                  <div style="font-size:0.75rem; color:#64748b; margin-top:2px;" id="receipt-item-sub">Mode: UPI / QR | Ref: TXN92384729384</div>
+                </td>
+                <td style="text-align: right; font-weight: 700; font-size: 0.95rem;" id="receipt-item-amt">₹50,000</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="receipt-totals">
+            <table>
+              <tr>
+                <td>Transaction Amount:</td>
+                <td style="text-align: right;" id="receipt-subtotal">₹50,000</td>
+              </tr>
+              <tr class="total-row">
+                <td>Total Received:</td>
+                <td style="text-align: right; color: #4f46e5;" id="receipt-grandtotal">₹50,000</td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="receipt-stamp">
+            <span>OFFICIAL</span>
+            <div class="receipt-stamp-inner">RECEIVED</div>
+            <span>STAMP</span>
+          </div>
+
+          <div class="receipt-footer-sign">
+            <div class="receipt-notes">
+              <p style="font-weight: 600; color: #334155; margin-bottom: 4px;">Thank you for your payment!</p>
+              <p>This is a computer-generated document. For query resolution, contact office@littleanchors.edu</p>
+            </div>
+            <div class="receipt-signature-area">
+              <div class="signature-line">Authorized Signee</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btn-close-receipt-bottom">Close</button>
+        <button class="btn btn-primary" id="btn-print-receipt-trigger">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16">
+            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <rect x="6" y="14" width="12" height="8"></rect>
+          </svg>
+          Print Receipt
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- STUDENT PROFILE DETAILS DRAWER -->
+  <div class="drawer-overlay" id="drawer-overlay-element"></div>
+  
+  <div class="student-drawer" id="student-profile-drawer">
+    <div class="drawer-header">
+      <div class="drawer-title-box">
+        <div class="drawer-avatar" id="drawer-avatar-tag">LJ</div>
+        <div class="drawer-meta">
+          <h2 id="drawer-student-name">Liam Johnson</h2>
+          <span id="drawer-student-class-label">LKG - Reg ID: LA-2026-004</span>
+        </div>
+      </div>
+      <button class="btn-close" id="btn-close-drawer">&times;</button>
+    </div>
+    
+    <div class="drawer-body">
+      <div class="drawer-stats">
+        <div class="drawer-stat-card">
+          <div class="drawer-stat-label">TOTAL ALLOCATED</div>
+          <div class="drawer-stat-val" id="drawer-stat-total">₹0</div>
+        </div>
+        <div class="drawer-stat-card" style="border-bottom: 2px solid var(--secondary);">
+          <div class="drawer-stat-label" style="color: var(--secondary);">TOTAL PAID</div>
+          <div class="drawer-stat-val" id="drawer-stat-paid" style="color: var(--secondary);">₹0</div>
+        </div>
+        <div class="drawer-stat-card" style="border-bottom: 2px solid var(--danger);">
+          <div class="drawer-stat-label" style="color: var(--danger);">PENDING</div>
+          <div class="drawer-stat-val" id="drawer-stat-pending" style="color: var(--danger);">₹0</div>
+        </div>
+      </div>
+
+      <div class="info-list">
+        <div class="info-row">
+          <span class="info-label">Parent / Guardian:</span>
+          <span class="info-val" id="drawer-info-parent">Robert Johnson</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Phone Number:</span>
+          <span class="info-val" id="drawer-info-phone">+1 555-0199</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Email:</span>
+          <span class="info-val" id="drawer-info-email">robert@example.com</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Admission Date:</span>
+          <span class="info-val" id="drawer-info-date">January 10, 2026</span>
+        </div>
+      </div>
+
+      <div class="drawer-tabs">
+        <button class="drawer-tab active" id="tab-btn-installments">Installment Plan</button>
+        <button class="drawer-tab" id="tab-btn-receipts">Receipts History</button>
+        <button class="drawer-tab" id="tab-btn-breakdown">Fee Splits</button>
+      </div>
+
+      <!-- Tab Content 1: Installments Timeline -->
+      <div class="tab-pane active" id="pane-installments">
+        <div class="timeline-list" id="drawer-installments-list">
+          <!-- Installments loaded dynamically via JS -->
+        </div>
+      </div>
+
+      <!-- Tab Content 2: Receipts History -->
+      <div class="tab-pane" id="pane-receipts">
+        <div class="timeline-list" id="drawer-receipts-list">
+          <!-- Receipts loaded dynamically via JS -->
+        </div>
+      </div>
+
+      <!-- Tab Content 3: Fee Breakdown details -->
+      <div class="tab-pane" id="pane-breakdown">
+        <div class="info-list" style="background: none; padding: 0;">
+          <div class="info-row" style="margin-bottom:12px;">
+            <span class="info-label">Admission Fee:</span>
+            <span class="info-val" id="breakdown-admission">₹0</span>
+          </div>
+          <div class="info-row" style="margin-bottom:12px;">
+            <span class="info-label">Term Tuition Fee:</span>
+            <span class="info-val" id="breakdown-term">₹0</span>
+          </div>
+          <div class="info-row" style="margin-bottom:12px;">
+            <span class="info-label">Daycare Service Fee:</span>
+            <span class="info-val" id="breakdown-daycare">₹0</span>
+          </div>
+          <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 12px 0;">
+          <div class="info-row" style="font-size: 1rem;">
+            <span class="info-label" style="font-weight: 700; color: var(--text-main);">Grand Total:</span>
+            <span class="info-val" style="font-weight: 800; color: var(--primary);" id="breakdown-total">₹0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Center -->
+  <div class="toast-container" id="toast-wrapper">
+    <!-- Toasts injected dynamically -->
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

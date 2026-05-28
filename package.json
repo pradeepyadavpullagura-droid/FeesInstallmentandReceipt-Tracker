@@ -1,0 +1,19 @@
+{
+  "name": "fees-installment-tracker",
+  "version": "1.0.0",
+  "description": "Fees Installment & Receipt Tracker Portal - Preschool & Daycare Administration",
+  "main": "index.html",
+  "scripts": {
+    "dev": "npx -y browser-sync start --server --files \"*.*\" --port 3000"
+  },
+  "keywords": [
+    "fees",
+    "tracker",
+    "preschool",
+    "daycare",
+    "receipts",
+    "installments"
+  ],
+  "author": "Centre Admin Developer",
+  "license": "MIT"
+}
